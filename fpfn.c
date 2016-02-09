@@ -88,7 +88,7 @@ void findBestTime(double nub,double nutot,double *tbest, int* THRbest)
     {
       t=randReal(0,MAXTIME);
       THR=randInt(1,MAXTHR);
-      double chi2=pow(FP(nub,t,THR)-0.01,2)+pow(FN(nutot,t,THR)-0.05,2);
+      double chi2=pow(FP(nub,t,THR)-0.01,2)+pow(FN(nutot,t,THR)-0.01,2);
       if(chi2<chi2best)
 	{
 	  chi2best=chi2;
@@ -108,7 +108,7 @@ void findBestTHR(double nub,double nutot,double time, int* THRbest)
   for(i=0;i<NMC;i++)
     {
       THR=randInt(1,MAXTHR);
-      double chi2=pow(FP(nub,time,THR)-0.01,2)+pow(FN(nutot,time,THR)-0.05,2);
+      double chi2=pow(FP(nub,time,THR)-0.001,2)+pow(FN(nutot,time,THR)-0.01,2);
       if(chi2<chi2best)
 	{
 	  chi2best=chi2;
