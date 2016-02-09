@@ -17,6 +17,7 @@ int randInt(int max, int min);
 double fattoriale(int N);
 void findBestTime(double nub,double nutot,double *tbest, int* THRbest);
 void findBestTHR(double nub,double nutot,double time, int* THRbest);
+
 int main(){
 	srand48(time(0));
 	/* double nub0=fromInput("background rate",0,1E12); */
@@ -24,6 +25,7 @@ int main(){
 	
 	double nub0=12.;
 	double nut0=28.;
+
 	double thr=24.;
 	double time=1.;
 
