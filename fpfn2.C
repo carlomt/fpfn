@@ -261,14 +261,10 @@ void print_help(string fname)
 {
   cout<<"Source: "<<__FILE__<<endl;
   cout<<endl;
-  cout<<"Usage  : "<<fname<<" (option) <evtfile>"<<endl;
-  cout<<"Option : -verbose  (show debug output)"<<endl;
-  cout<<"Option : -o  (set output filename, by default is the name of the first input)"<<endl;
-  cout<<"Option : -v  (version of the file 38: "<<endl
-      <<"\t 1) for the old simulation;"<<endl
-      <<"\t 2) for the output with mass and momentum of primaries;"<<endl
-      <<"\t 3) reads also the primaries energy entering the probe; "<<endl
-      <<"\t 4) with flag for the creation region)"<<endl;
+  cout<<"Usage  : "<<fname<<" (option) freqBkg freqSig"<<endl;
+  //  cout<<"Option : -verbose  (show debug output)"<<endl;
+  //  cout<<"Option : -o  (set output filename, by default is the name of the first input)"<<endl;
+  cout<<"Option : -t set max time for the loop (default: 10 sec) "<<endl;
   cout<<"Option : -help     (show this help)"<<endl;
   //    printf("       : -log (Log filename)\n"); 
   cout<<endl;
