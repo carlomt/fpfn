@@ -35,7 +35,8 @@ int main(int argc, char *argv[])
   cout<<"Compiled at: "<< __DATE__ <<", "<< __TIME__<<"."<<endl;
   
   string execname=argv[0];
-  
+  string ofname="output.txt";
+
   double nub0=-1.;
   double nut0=-1;
   
@@ -64,6 +65,10 @@ int main(int argc, char *argv[])
 	      if(option.compare("-t")==0)
 		{
 		  steps=myStoi(argv[++i])*10;
+		}
+	      if(option.compare("-o")==0)
+		{
+		  ofname=argv[++i];
 		}
 	      else
 		{
@@ -102,8 +107,9 @@ int main(int argc, char *argv[])
   
   double thr=24.;
   double time=1.;
+
+  FILE *f = fopen(ofname.c_str(), "w");
   
-  FILE *f = fopen("output.txt", "w");
   if(f == NULL)
     {
       printf("Error opening file!\n");
@@ -263,7 +269,7 @@ void print_help(string fname)
   cout<<endl;
   cout<<"Usage  : "<<fname<<" (option) freqBkg freqSig"<<endl;
   //  cout<<"Option : -verbose  (show debug output)"<<endl;
-  //  cout<<"Option : -o  (set output filename, by default is the name of the first input)"<<endl;
+  cout<<"Option : -o set output filename (default \'output.txt\')"<<endl;
   cout<<"Option : -t set max time for the loop (default: 10 sec) "<<endl;
   cout<<"Option : -help     (show this help)"<<endl;
   //    printf("       : -log (Log filename)\n"); 
