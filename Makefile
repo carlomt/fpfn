@@ -12,8 +12,8 @@ default: ${OBJS} ${HEADERS}
 clean:
 		rm -f fpfn.x ${OBJS}
 
-fpfn.o:	fpfn.C
-		$(CXX) $(CXXFLAGS) -c fpfn.C -o fpfn.o
+fpfn.o:	fpfn2.C
+		$(CXX) $(CXXFLAGS) -c fpfn2.C -o fpfn.o
 
 # myStod.o: myStod.C
 # 		$(CXX) $(CXXFLAGS) -c myStod.C -o myStod.o
