@@ -32,3 +32,6 @@
 *.dSYM/
 
 output.txt
+*.txt
+*~
+*.x
