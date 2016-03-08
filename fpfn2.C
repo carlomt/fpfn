@@ -30,7 +30,7 @@ void print_help(string fname="executable");
 int main(int argc, char *argv[])
 {
   
-  cout<<argv[0]<< " 2.1"<<endl;
+  cout<<argv[0]<< " v: 2.1"<<endl;
   cout<<"Last edit:   Mar 8 2016."<<endl;
   cout<<"Compiled at: "<< __DATE__ <<", "<< __TIME__<<"."<<endl;
   
@@ -41,6 +41,7 @@ int main(int argc, char *argv[])
   double nut0=-1;
   
   int steps=100;
+  double timelimit=10.;
 
   vector<double> nums;
   
@@ -53,6 +54,7 @@ int main(int argc, char *argv[])
     {
       for(int i=1;i<argc;i++)
 	{
+	  //	  cout<<"argv["<<i<<"]: "<<argv[i]<<endl;
 	  if(argv[i][0] =='-')
 	    {
 	      string option(argv[i]);
@@ -62,17 +64,26 @@ int main(int argc, char *argv[])
 		  print_help(argv[0]);
 		  exit(0); 
 		}
-	      if(option.compare("-t")==0)
+	      else if(option.compare("-t")==0)
 		{
-		  steps=myStoi(argv[++i])*10;
+		  //		  steps=myStoi(argv[++i])*10;
+		  string tmp=argv[++i];
+		  timelimit=myStod(tmp);
+		  cout<<"time limit: "<<timelimit<<" s."<<endl;
 		}
-	      if(option.compare("-o")==0)
+	      else if(option.compare("-s")==0)
+		{
+		  string tmp=argv[++i];
+		  steps=myStoi(tmp);
+		  cout<<"number of steps: "<<steps<<endl;
+		}
+	      else if(option.compare("-o")==0)
 		{
 		  ofname=argv[++i];
 		}
 	      else
 		{
-		  cout<<"option not recognized: "<<argv[i];
+		  cout<<"option not recognized: "<<option<<endl;
 		  exit(-1);
 		}
 	    }
@@ -100,8 +111,8 @@ int main(int argc, char *argv[])
       nut0=nums[0];
     }
   
-  cout<<"Frequency on tumour: "<<nut0<<endl;
-  cout<<"Frequency on healty tissue: "<<nub0<<endl;
+  cout<<"Frequency on tumour: "<<nut0<<" Hz."<<endl;
+  cout<<"Frequency on healty tissue: "<<nub0<<" Hz."<<endl;
 
   srand48(time(0));
   
@@ -116,9 +127,12 @@ int main(int argc, char *argv[])
       exit(1);
     }
   fprintf(f,"#time \t FP \t FN \n");
+
+  double stepsize=timelimit/steps;
+  cout<<"step size: "<<stepsize<<endl;
   for(int i=1; i<=steps; i++)
     {
-      time=i*.1;
+      time=i*stepsize;
       
       thr*=time;
       
@@ -270,7 +284,8 @@ void print_help(string fname)
   cout<<"Usage  : "<<fname<<" (option) freqBkg freqSig"<<endl;
   //  cout<<"Option : -verbose  (show debug output)"<<endl;
   cout<<"Option : -o set output filename (default \'output.txt\')"<<endl;
-  cout<<"Option : -t set max time for the loop (default: 10 sec) "<<endl;
+  cout<<"Option : -t set max time in sec for the loop (default: 10 sec) "<<endl;
+  cout<<"Option : -s set number of loop steps (default: 100) "<<endl;
   cout<<"Option : -help     (show this help)"<<endl;
   //    printf("       : -log (Log filename)\n"); 
   cout<<endl;
