@@ -23,7 +23,7 @@ int randInt(int max, int min);
 
 double fattoriale(int N);
 void findBestTime(double nub,double nutot,double *tbest, int* THRbest);
-void findBestTHR(double nub,double nutot,double time, int* THRbest);
+int findBestTHR(double nub,double nutot,double time);
 
 void print_help(string fname="executable");
 
@@ -136,9 +136,7 @@ int main(int argc, char *argv[])
       
       thr*=time;
       
-      int THRbest;
-      
-      findBestTHR(nub0,nut0,time, &THRbest);
+      int THRbest=findBestTHR(nub0,nut0,time);
       
       double fp=FP(nub0,time,THRbest);
       double fn= FN(nut0,time,THRbest);
@@ -182,7 +180,7 @@ void findBestTime(double nub,double nutot,double *tbest, int* THRbest)
 }
 
 
-void findBestTHR(double nub,double nutot,double time, int* THRbest)
+int findBestTHR(double nub,double nutot,double time)
 {
   /* cout<<"in f"<<endl; */
   /* cout<<"nutot: "<<nutot<<endl; */
@@ -191,6 +189,7 @@ void findBestTHR(double nub,double nutot,double time, int* THRbest)
   /* cout<<"limit: "<<limit<<endl; */
   double chi2best=1E12;
   int THR;
+  int res=0;
   //  for(i=0;i<NMC;i++)
   if(limit>1)
     {
@@ -203,16 +202,16 @@ void findBestTHR(double nub,double nutot,double time, int* THRbest)
 	  if(chi2<chi2best)
 	    {
 	      chi2best=chi2;
-	      *THRbest=THR;
+	      res=THR;
 	    }
       //					printf("t=%lf THR=%d FP=%e FN=%e\n",t,THR,FP(nub,t,THR),FN(nutot,t,THR));
 	}
     }
   else
     {
-      *THRbest=1;
+      res=1;
     }
-  return;
+  return res;
 }
 
 double FP (double nub, double t, int THR){
