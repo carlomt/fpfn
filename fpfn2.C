@@ -26,12 +26,13 @@ void findBestTime(double nub,double nutot,double *tbest, int* THRbest);
 int findBestTHR(double nub,double nutot,double time);
 
 void print_help(string fname="executable");
+void print_resume();
 
 int main(int argc, char *argv[])
 {
   
-  cout<<argv[0]<< " v: 2.1"<<endl;
-  cout<<"Last edit:   Mar 8 2016."<<endl;
+  cout<<argv[0]<< " v: 2.2"<<endl;
+  cout<<"Last edit:   Jun 4 2016."<<endl;
   cout<<"Compiled at: "<< __DATE__ <<", "<< __TIME__<<"."<<endl;
   
   string execname=argv[0];
@@ -41,9 +42,12 @@ int main(int argc, char *argv[])
   double nut0=-1;
   
   int steps=100;
-  double timelimit=10.;
+  double timelimit=5.;
 
   vector<double> nums;
+
+  double firstTimeBelow01Time=-1., firstTimeBelow01FP=-1., firstTimeBelow01FN=-1., firstTimeBelow01THR=-1.;
+  bool firstTimeBelow01Setted=false;
   
   if(argc==1)
     {
@@ -142,11 +146,34 @@ int main(int argc, char *argv[])
       double fn= FN(nut0,time,THRbest);
       
       fprintf(f,"%lf \t %e \t %e \t %d \n",time,fp,fn,THRbest);
+      if(!firstTimeBelow01Setted)
+	{
+	  if(fp<=0.01 && fn<=0.01 && fp>0 && fn>0)
+	    {
+	      firstTimeBelow01Setted=true;
+	      firstTimeBelow01Time=time;
+	      firstTimeBelow01FP=fp;
+	      firstTimeBelow01FN=fn;
+	      firstTimeBelow01THR=THRbest;
+	    }
+	}
     }
   
   fclose(f);
-  
-		
+  print_resume();
+  if(firstTimeBelow01Setted)
+    {
+      cout<<" After "<<firstTimeBelow01Time<<" sec. the probability of false positive and false negative are below 1%"<<endl;
+      cout<<" FP: "<<firstTimeBelow01FP<<endl;
+      cout<<" FN: "<<firstTimeBelow01FN<<endl;
+      cout<<" THR: "<<firstTimeBelow01THR<<endl;
+    }
+  else
+    {
+      cout<<" After "<<timelimit<<" sec. the probability of false positive and false negative are NOT below 1%"<<endl;
+      cout<<"try to run again increasing time limit (option -t)."<<endl;
+      
+    }
 }
 
 double randReal(double min, double max)
@@ -283,11 +310,17 @@ void print_help(string fname)
   cout<<"Usage  : "<<fname<<" (option) freqBkg freqSig"<<endl;
   //  cout<<"Option : -verbose  (show debug output)"<<endl;
   cout<<"Option : -o set output filename (default \'output.txt\')"<<endl;
-  cout<<"Option : -t set max time in sec for the loop (default: 10 sec) "<<endl;
+  cout<<"Option : -t set max time in sec for the loop (default: 5 sec) "<<endl;
   cout<<"Option : -s set number of loop steps (default: 100) "<<endl;
   cout<<"Option : -help     (show this help)"<<endl;
   //    printf("       : -log (Log filename)\n"); 
   cout<<endl;
-
+  print_resume();
+  cout<<endl;
   return;
+}
+
+void print_resume()
+{
+  cout<<"To plot results open gnuplot and type:"<<endl<<"l 'plot.gp'"<<endl;
 }
