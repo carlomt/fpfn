@@ -1,3 +1,6 @@
+//OBSOLETO!
+//open fpfn2.C
+
 #include <math.h>
 #include <stdio.h>
 #include <stdlib.h>
