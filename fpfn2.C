@@ -31,6 +31,9 @@ int main(int argc, char *argv[])
   int steps=100;
   double timelimit=5.;
 
+  double fpTarget = 0.01;
+  double fnTarget = 0.01;
+
   vector<double> nums;
 
   double firstTimeBelow01Time=-1., firstTimeBelow01FP=-1., firstTimeBelow01FN=-1., firstTimeBelow01THR=-1.;
@@ -135,7 +138,7 @@ int main(int argc, char *argv[])
       fprintf(f,"%lf \t %e \t %e \t %d \n",time,fp,fn,THRbest);
       if(!firstTimeBelow01Setted)
 	{
-	  if(fp<=0.01 && fn<=0.01 && fp>0 && fn>0)
+	  if(fp<=0.01 && fn<=0.05 && fp>0 && fn>0)
 	    {
 	      firstTimeBelow01Setted=true;
 	      firstTimeBelow01Time=time;
