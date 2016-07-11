@@ -90,8 +90,9 @@ int main(int argc, char *argv[])
 			exit(-2); 
 		}
 	}//end loop args
-	/*double tt;int a;
-	findBestTime(2.6,170.6,&tt,&a,MAXFP,MAXFN,timelimit,steps);
+	/*
+	double tt;int a;
+	findBestTime(10,40,&tt,&a,MAXFP,MAXFN,timelimit,steps);
     printf("Amin=%lf\n",3*tt);
 	exit(9);
 	*/
@@ -114,7 +115,7 @@ int main(int argc, char *argv[])
 				exit(1);
 			}
 			int it;
-			fprintf(f,"TNR \t\t Min Activity\n");
+			fprintf(f,"# TNR \t\t Min Activity\n");
 			for(it=0;it<TNRSTP;it++){
 				double TNR=MINTNR+it*(MAXTNR-MINTNR)/(TNRSTP-1);
 				printf("processing SUV=%lf TNR=%lf\n",SUV,TNR);

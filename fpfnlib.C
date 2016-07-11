@@ -21,7 +21,6 @@ int randInt(int min, int max)
 //establishes whether there is a combination with FN<MAXFN and FP<MAXFP 
 int canDetect(double nub, double nus, double time, int* THR, double maxfp,double maxfn){
 	int limit=(int) (nus*time +0.6);
-	if(time==20)printf("nub=%lf nus=%lf\n",nub,nus);
 	
 	if(limit<1) return 0;
 	int thr;
@@ -29,7 +28,6 @@ int canDetect(double nub, double nus, double time, int* THR, double maxfp,double
 		*THR=thr;
 		double FPos=FP(nub,time,thr);
 		double FNeg=FN(nus,time,thr);
-		if(time==20)printf("THR=%d FP=%lf FN=%lf\n",thr,FPos,FNeg);
 		if((FPos<=maxfp) && ( FNeg<=maxfn)) 
 			return 1;//detectable
 	}

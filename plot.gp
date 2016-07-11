@@ -15,7 +15,7 @@ set multiplot
 # set yrange [-0.01*sf:0.31*sf]
  set xlabel 'Time  [sec.]'
  set ylabel 'Prob.  [%]'
- plot 'output.txt' u 1:($2*sf) t 'False Positive', 'output.txt' u 1:($3*sf) t 'False Negative'
+# plot 'output.txt' u 1:($2*sf) t 'False Positive', 'output.txt' u 1:($3*sf) t 'False Negative'
  
 unset multiplot
  
