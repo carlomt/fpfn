@@ -21,7 +21,7 @@ int randInt(int min, int max)
 //establishes whether there is a combination with FN<MAXFN and FP<MAXFP 
 int canDetect(double nub, double nus, double time, int* THR, double maxfp,double maxfn){
 	int limit=(int) (nus*time +0.6);
-	if(time==10)printf("nub=%lf nus=%lf\n",nub,nus);
+	if(time==20)printf("nub=%lf nus=%lf\n",nub,nus);
 	
 	if(limit<1) return 0;
 	int thr;
@@ -29,7 +29,7 @@ int canDetect(double nub, double nus, double time, int* THR, double maxfp,double
 		*THR=thr;
 		double FPos=FP(nub,time,thr);
 		double FNeg=FN(nus,time,thr);
-		if(time==10)printf("THR=%d FP=%lf FN=%lf\n",thr,FPos,FNeg);
+		if(time==20)printf("THR=%d FP=%lf FN=%lf\n",thr,FPos,FNeg);
 		if((FPos<=maxfp) && ( FNeg<=maxfn)) 
 			return 1;//detectable
 	}
@@ -83,14 +83,14 @@ double FN (double nutot, double t, int THR){
 	double res=0;
 	int i;
 	double mu=nutot*t;
-	if(mu<100){
+	if(mu<20){
 		for(i=0; i<THR; i++) 
 		{
 			double tmp=poisson(i,mu);
 			res+=tmp;
 		}
 	} else {
-		res=0.5+erf((THR-mu)/sqrt(2*mu))/2;
+		res=0.5+erf((THR-mu-0.5)/sqrt(2.*mu))/2.;
 	}
 	return res;
 }
@@ -107,7 +107,7 @@ double poisson(int N, double mu)
 			ratio*=mu/k;
 		}
 		res=expo*ratio;
-		printf("mu=%lf, N=%d pois=%lf erf=%lf\n",mu,N,res,(erf((N+0.5-mu)/sqrt(2*mu))-erf((N-0.5-mu)/sqrt(2*mu)))/2.);
+	//	printf("mu=%lf, N=%d pois=%lf erf=%lf\n",mu,N,res,(erf((N+0.5-mu)/sqrt(2*mu))-erf((N-0.5-mu)/sqrt(2*mu)))/2.);
 		if(res<=0 || res >1){
 			printf("something is rotten in poisson(%d, %lf)=%lf\n",N,mu,res);
 			exit(10);

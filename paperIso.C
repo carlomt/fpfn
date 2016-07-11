@@ -25,8 +25,8 @@
 #define MAXTNR 30
 #define TNRSTP 14
 #define TNRREF 4
-//Number of isotopes (dovrebbe essere 11)
-#define NISO 1 
+//Number of isotopes (dovrebbe essere 11 a meno di test)
+#define NISO 11
 
 using namespace std;
 
@@ -42,8 +42,8 @@ int main(int argc, char *argv[])
 	string ifname="input.dat";
 	string ofname="output";
 	
-	int i, steps=200;
-	double timelimit=10.;
+	int i, steps=1000;
+	double timelimit=25.;
 	
 	vector<double> nums;
 	
@@ -90,7 +90,11 @@ int main(int argc, char *argv[])
 			exit(-2); 
 		}
 	}//end loop args
-    
+	/*double tt;int a;
+	findBestTime(2.6,170.6,&tt,&a,MAXFP,MAXFN,timelimit,steps);
+    printf("Amin=%lf\n",3*tt);
+	exit(9);
+	*/
 	if(!readinput(ifname, iso, RFAR,RTUM,  RHT)){
 		printf("error in input file format\n");
 		exit(-3);

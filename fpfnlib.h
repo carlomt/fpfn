@@ -5,9 +5,6 @@
 #include <iostream>
 #include <vector>
 
-#define MAXTIME 10.
-#define MAXTHR 100.
-#define NMC 10000
 
 double fromInput(const char *, double min, double max);
 double FN (double nutot, double t, int THR);
