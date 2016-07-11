@@ -107,7 +107,7 @@ double poisson(int N, double mu)
 			ratio*=mu/k;
 		}
 		res=expo*ratio;
-		printf("mu=%lf, N=%d pois=%lf erf=%lf\n",mu,N,res,(erf((N+0.5-mu)/sqrt(mu))-erf((N-0.5-mu)/sqrt(mu)))/sqrt(8));
+		printf("mu=%lf, N=%d pois=%lf erf=%lf\n",mu,N,res,(erf((N+0.5-mu)/sqrt(2*mu))-erf((N-0.5-mu)/sqrt(2*mu)))/2.);
 		if(res<=0 || res >1){
 			printf("something is rotten in poisson(%d, %lf)=%lf\n",N,mu,res);
 			exit(10);
