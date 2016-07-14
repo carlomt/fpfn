@@ -104,7 +104,7 @@ int main(int argc, char *argv[])
 	for (i=0; i<NISO; i++) {
 		printf("processing isotope %s\n",iso[i].c_str());
 		for(is=0;is<SUVSTP;is++){
-			double SUV=MINSUV+(MAXSUV-MINSUV)*is/(SUVSTP-1.);
+			double SUV=(SUVSTP==1)?MINSUV:MINSUV+(MAXSUV-MINSUV)*is/(SUVSTP-1.);
 			char filename[80];
 			sprintf(filename,"%s_%s_%d", ofname.c_str(),iso[i].c_str(),(int)SUV);
 			FILE *f = fopen(filename, "w");
@@ -118,14 +118,15 @@ int main(int argc, char *argv[])
 			fprintf(f,"# TNR \t\t Min Activity\n");
 			for(it=0;it<TNRSTP;it++){
 				double TNR=MINTNR+it*(MAXTNR-MINTNR)/(TNRSTP-1);
-				printf("processing SUV=%lf TNR=%lf\n",SUV,TNR);
+				//printf("processing SUV=%lf TNR=%lf\n",SUV,TNR);
 				double tmin;
 				int thr;
 				double rht=RFAR[i]+RHT[i]*(SUV/TNR)/(SUVREF/TNRREF);
 				double rtum=RFAR[i]+RTUM[i]*(SUV/SUVREF);
 				findBestTime(rht,rtum,&tmin,&thr,MAXFP,MAXFN,timelimit,steps);
 				AMIN=tmin*AREF/TREF;
-				//printf("HT=%lf TUM=%lf AMIN=%lf\n",rht,rtum,AMIN);
+				if(SUV==4 && TNR==4)printf("tmin, Amin %10.2lf %10.2lf\n",tmin,AMIN);
+
 				fprintf(f,"%10.3lf %10.3lf\n",TNR,AMIN);
 			}
 			/*
