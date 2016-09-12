@@ -17,16 +17,16 @@
 #define TREF 1.0
 //Maximum and minimum considered SUV, steps and reference SUV
 #define MINSUV 1
-#define MAXSUV 4
-#define SUVSTP 2
+#define MAXSUV 8
+#define SUVSTP 8
 #define SUVREF 4
 //Maximum considered SUV and reference SUV
 #define MINTNR 4
 #define MAXTNR 30
 #define TNRSTP 14
 #define TNRREF 4
-//Number of isotopes (dovrebbe essere 11 a meno di test)
-#define NISO 11
+//Number of isotopes (dovrebbe essere 12 a meno di test)
+#define NISO 12
 
 using namespace std;
 
@@ -125,7 +125,7 @@ int main(int argc, char *argv[])
 				double rtum=RFAR[i]+RTUM[i]*(SUV/SUVREF);
 				findBestTime(rht,rtum,&tmin,&thr,MAXFP,MAXFN,timelimit,steps);
 				AMIN=tmin*AREF/TREF;
-				if(SUV==4 && TNR==4)printf("tmin, Amin %10.2lf %10.2lf\n",tmin,AMIN);
+				if(SUV==4 && TNR==8)printf("tmin, Amin %10.2lf %10.2lf\n",tmin,AMIN);
 
 				fprintf(f,"%10.3lf %10.3lf\n",TNR,AMIN);
 			}
